@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de Misiones — SdA 3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,sans-serif;background:#F0F4F8;min-height:100vh;padding:16px;}
+#app{max-width:840px;margin:0 auto;}
+header{text-align:center;margin-bottom:16px;}
+header h1{font-size:22px;font-weight:800;color:#185FA5;letter-spacing:-.3px;}
+header p{font-size:12px;color:#6B7280;margin-top:3px;}
+#main{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;}
+
+/* Board */
+#board-wrap{flex:1;min-width:460px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.board-row{display:flex;align-items:center;gap:5px;}
+.board-row.reverse{flex-direction:row-reverse;}
+
+.card{position:relative;width:100px;height:112px;border-radius:13px;padding:8px 7px 7px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;transition:transform .15s,box-shadow .15s;flex-shrink:0;border:2px solid transparent;}
+.card.completed{background:#185FA5;color:#fff;box-shadow:0 3px 10px rgba(24,95,165,.3);}
+.card.current{background:#F59E0B;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.45);border-color:#FBBF24;}
+.card.locked{background:#F3F4F6;color:#9CA3AF;border-color:#E5E7EB;}
+@keyframes pulse{0%,100%{box-shadow:0 4px 14px rgba(245,158,11,.45);}50%{box-shadow:0 4px 22px rgba(245,158,11,.75);}}
+.card.current{animation:pulse 2s infinite;}
+
+.card-num{font-size:10px;font-weight:800;align-self:flex-start;opacity:.75;letter-spacing:.3px;}
+.card-icon{font-size:27px;line-height:1;margin:1px 0;}
+.card-title{font-size:9px;font-weight:600;text-align:center;line-height:1.35;max-width:92px;}
+.card-check{position:absolute;top:5px;right:7px;font-size:10px;opacity:.85;}
+.footprint{position:absolute;top:-12px;right:-9px;font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
+@keyframes bounce{from{transform:rotate(12deg) translateY(0);}to{transform:rotate(12deg) translateY(-5px);}}
+.footprint{animation:bounce .9s ease-in-out infinite alternate;}
+.finish-flag{position:absolute;top:-8px;right:-6px;font-size:16px;}
+
+.arrow-h{font-size:16px;color:#D1D5DB;flex-shrink:0;user-select:none;}
+.arrow-h.done{color:#93C5FD;}
+.turn-wrap{display:flex;margin:4px 0;}
+.turn-wrap.right{justify-content:flex-end;padding-right:2px;}
+.turn-wrap.left{justify-content:flex-start;padding-left:3px;}
+.turn-arrow{font-size:20px;width:104px;text-align:center;color:#D1D5DB;user-select:none;}
+.turn-arrow.done{color:#93C5FD;}
+
+/* Sidebar */
+#sidebar{width:200px;flex-shrink:0;}
+.s-card{background:#fff;border-radius:14px;padding:13px;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);}
+.s-label{font-size:9.5px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;}
+#team-input{width:100%;border:1.5px solid #E5E7EB;border-radius:9px;padding:7px 9px;font-size:13px;color:#1F2937;outline:none;}
+#team-input:focus{border-color:#185FA5;}
+
+.pa-row{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.pa-btn{width:32px;height:32px;border-radius:9px;border:1.5px solid #E5E7EB;background:#F9FAFB;font-size:18px;cursor:pointer;color:#374151;line-height:1;transition:background .15s;}
+.pa-btn:hover{background:#F3F4F6;}
+#pa-display{font-size:32px;font-weight:900;color:#185FA5;line-height:1;}
+#pa-sub{font-size:9px;color:#9CA3AF;text-align:center;margin-top:1px;}
+.level-wrap{margin-top:9px;}
+#level-name{font-size:12px;font-weight:700;color:#1F2937;margin-bottom:5px;}
+.bar-bg{height:8px;background:#E5E7EB;border-radius:99px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#1447A0,#3B82F6);transition:width .45s;}
+
+.badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.badge-btn{border:1.5px solid #E5E7EB;border-radius:10px;padding:8px 5px 6px;background:#fff;cursor:pointer;text-align:center;transition:all .2s;opacity:.4;}
+.badge-btn.on{border-color:#185FA5;background:#EFF6FF;opacity:1;}
+.badge-icon{font-size:19px;display:block;margin-bottom:2px;}
+.badge-name{font-size:8px;color:#374151;line-height:1.3;font-weight:600;display:block;}
+.badge-pa{font-size:9px;color:#185FA5;font-weight:700;display:block;margin-top:2px;}
+
+#btn-advance{width:100%;padding:11px;background:#185FA5;color:#fff;border:none;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px;transition:background .15s;letter-spacing:.2px;}
+#btn-advance:hover:not(:disabled){background:#1447A0;}
+#btn-advance:disabled{background:#9CA3AF;cursor:default;}
+#btn-reset{width:100%;padding:8px;background:#fff;color:#EF4444;border:1.5px solid #FCA5A5;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;transition:background .15s;}
+#btn-reset:hover{background:#FEF2F2;}
+#celebration{display:none;text-align:center;background:linear-gradient(135deg,#1447A0,#2563EB);color:#fff;border-radius:13px;padding:16px 12px;margin-top:10px;}
+#celebration .cel-icon{font-size:38px;margin-bottom:6px;}
+#celebration p{font-size:12px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>🧭 Tablero de Misiones</h1>
+    <p>SdA 3 · Huellas sobre el territorio · Matemáticas 4.º ESO B</p>
+  </header>
+
+  <div id="main">
+    <div id="board-wrap">
+      <div id="board"></div>
+    </div>
+
+    <div id="sidebar">
+      <div class="s-card">
+        <div class="s-label">Nombre del equipo</div>
+        <input id="team-input" type="text" placeholder="Equipo Tangente…" maxlength="28">
+      </div>
+
+      <div class="s-card">
+        <div class="s-label">Puntos de Análisis (PA)</div>
+        <div class="pa-row">
+          <button class="pa-btn" onclick="adjustPA(-5)">−</button>
+          <div style="text-align:center;">
+            <div id="pa-display">0</div>
+            <div id="pa-sub">de 100 PA</div>
+          </div>
+          <button class="pa-btn" onclick="adjustPA(5)">+</button>
+        </div>
+        <div class="level-wrap">
+          <div id="level-name">🔍 Explorador de huellas</div>
+          <div class="bar-bg"><div class="bar-fill" id="level-bar" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="s-card">
+        <div class="s-label">Insignias desbloqueadas</div>
+        <div class="badge-grid" id="badge-grid"></div>
+      </div>
+
+      <button id="btn-advance" onclick="advance()">👣 Avanzar misión</button>
+      <button id="btn-reset" onclick="resetAll()">↺ Reiniciar tablero</button>
+
+      <div id="celebration">
+        <div class="cel-icon">🏆</div>
+        <p><strong>¡Expediente completado!</strong><br>Habéis alcanzado el nivel<br><em>Experto en Huellas</em> 🌟</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const MISSIONS=[
+  {n:1,icon:"🗺️",title:"Apertura del expediente"},
+  {n:2,icon:"🔍",title:"Rastreando formas"},
+  {n:3,icon:"📏",title:"La escala del plano"},
+  {n:4,icon:"📐",title:"Calculando la huella"},
+  {n:5,icon:"💻",title:"Semejanza y plano I"},
+  {n:6,icon:"🖥️",title:"Semejanza y plano II"},
+  {n:7,icon:"🏛️",title:"La tercera dimensión"},
+  {n:8,icon:"💡",title:"¿Está bien diseñado?"},
+  {n:9,icon:"✍️",title:"Construyendo el argumento"},
+  {n:10,icon:"📝",title:"Redacción del informe"},
+  {n:11,icon:"🤝",title:"Coevaluación y mejora"},
+  {n:12,icon:"🎤",title:"Exposición y cierre"},
+];
+const BADGES=[
+  {id:"b1",icon:"🗺️",name:"Expediente abierto",pa:10},
+  {id:"b2",icon:"📏",name:"Analista superficies",pa:15},
+  {id:"b3",icon:"🗺️",name:"Maestro de la escala",pa:15},
+  {id:"b4",icon:"📢",name:"Comunicador técnico",pa:10},
+];
+const ROW1=[1,2,3,4];
+const ROW2=[8,7,6,5];
+const ROW3=[9,10,11,12];
+
+let state={current:1,pa:0,badges:{b1:false,b2:false,b3:false,b4:false},teamName:""};
+
+function load(){try{const s=localStorage.getItem("tm_sda3_v2");if(s)state=JSON.parse(s);}catch(e){}}
+function save(){try{localStorage.setItem("tm_sda3_v2",JSON.stringify(state));}catch(e){}}
+function status(n){return n<state.current?"completed":n===state.current?"current":"locked";}
+
+function makeCard(n){
+  const m=MISSIONS.find(x=>x.n===n);
+  const st=status(n);
+  const d=document.createElement("div");
+  d.className=`card ${st}`;
+  let h=`<span class="card-num">S${n}</span><span class="card-icon">${m.icon}</span><span class="card-title">${m.title}</span>`;
+  if(st==="completed") h+=`<span class="card-check">✓</span>`;
+  if(st==="current") h+=`<span class="footprint">👣</span>`;
+  if(n===12&&st!=="locked") h+=`<span class="finish-flag">🏁</span>`;
+  d.innerHTML=h;
+  return d;
+}
+
+function makeArrowH(txt,isDone){
+  const s=document.createElement("span");
+  s.className="arrow-h"+(isDone?" done":"");
+  s.textContent=txt;
+  return s;
+}
+
+function makeTurnArrow(side,fromN){
+  const wrap=document.createElement("div");
+  wrap.className=`turn-wrap ${side}`;
+  const a=document.createElement("div");
+  a.className="turn-arrow"+(status(fromN)==="completed"?" done":"");
+  a.textContent="↓";
+  wrap.appendChild(a);
+  return wrap;
+}
+
+function buildBoard(){
+  const board=document.getElementById("board");
+  board.innerHTML="";
+
+  // Row 1: 1→2→3→4
+  const r1=document.createElement("div");
+  r1.className="board-row";
+  ROW1.forEach((n,i)=>{
+    r1.appendChild(makeCard(n));
+    if(i<ROW1.length-1) r1.appendChild(makeArrowH("→",status(n)==="completed"));
+  });
+  board.appendChild(r1);
+
+  board.appendChild(makeTurnArrow("right",4));
+
+  // Row 2: displays 8,7,6,5 — path goes 5→6→7→8 (right to left visually)
+  const r2=document.createElement("div");
+  r2.className="board-row reverse";
+  ROW2.forEach((n,i)=>{
+    r2.appendChild(makeCard(n));
+    if(i<ROW2.length-1){
+      // Path goes from lower to higher (5→6→7→8), arrow shows direction
+      const pathFrom=ROW2[i+1]; // lower mission number = earlier in path
+      r2.appendChild(makeArrowH("→",status(pathFrom)==="completed"));
+    }
+  });
+  board.appendChild(r2);
+
+  board.appendChild(makeTurnArrow("left",8));
+
+  // Row 3: 9→10→11→12
+  const r3=document.createElement("div");
+  r3.className="board-row";
+  ROW3.forEach((n,i)=>{
+    r3.appendChild(makeCard(n));
+    if(i<ROW3.length-1) r3.appendChild(makeArrowH("→",status(n)==="completed"));
+  });
+  board.appendChild(r3);
+}
+
+function buildBadges(){
+  const grid=document.getElementById("badge-grid");
+  grid.innerHTML="";
+  BADGES.forEach(b=>{
+    const btn=document.createElement("button");
+    btn.className="badge-btn"+(state.badges[b.id]?" on":"");
+    btn.innerHTML=`<span class="badge-icon">${b.icon}</span><span class="badge-name">${b.name}</span><span class="badge-pa">+${b.pa} PA</span>`;
+    btn.onclick=()=>toggleBadge(b.id,b.pa);
+    grid.appendChild(btn);
+  });
+}
+
+function updatePA(){
+  const pa=Math.min(100,Math.max(0,state.pa));
+  document.getElementById("pa-display").textContent=pa;
+  let name,pct;
+  if(pa<=40){name="🔍 Explorador de huellas";pct=pa/40*100;}
+  else if(pa<=70){name="📐 Analista";pct=(pa-40)/30*100;}
+  else{name="🏆 Experto en Huellas";pct=(pa-70)/30*100;}
+  document.getElementById("level-name").textContent=name;
+  document.getElementById("level-bar").style.width=Math.min(100,pct)+"%";
+}
+
+function renderAll(){
+  buildBoard();
+  buildBadges();
+  updatePA();
+  document.getElementById("team-input").value=state.teamName||"";
+  const finished=state.current>12;
+  document.getElementById("btn-advance").disabled=finished;
+  document.getElementById("celebration").style.display=finished?"block":"none";
+}
+
+function advance(){
+  if(state.current<=12){state.current++;save();renderAll();}
+}
+function adjustPA(d){
+  state.pa=Math.min(100,Math.max(0,(state.pa||0)+d));
+  save();updatePA();
+}
+function toggleBadge(id,pa){
+  const on=state.badges[id];
+  state.badges[id]=!on;
+  state.pa=Math.min(100,Math.max(0,(state.pa||0)+(on?-pa:pa)));
+  save();buildBadges();updatePA();
+}
+function resetAll(){
+  if(!confirm("¿Seguro que queréis reiniciar? Se perderá todo el progreso del tablero."))return;
+  state={current:1,pa:0,badges:{b1:false,b2:false,b3:false,b4:false},teamName:state.teamName};
+  save();renderAll();
+}
+document.getElementById("team-input").addEventListener("input",function(){
+  state.teamName=this.value;save();
+});
+
+load();renderAll();
+</script>
+</body>
+</html>
