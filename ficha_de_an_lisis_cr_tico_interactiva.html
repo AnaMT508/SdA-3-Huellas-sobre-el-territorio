@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Análisis Crítico - Andamiaje Argumentativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sapphire-blue: #0f4c81;
+            --sapphire-light: #f0f7ff;
+            --sapphire-brand: #38bdf8;
+            --slate-text: #1e293b;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: var(--slate-text);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .tech-font { font-family: 'Orbitron', sans-serif; }
+        
+        .page-container {
+            max-width: 210mm;
+            margin: 20px auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .header-banner {
+            border-left: 6px solid var(--sapphire-blue);
+            background: #f1f5f9;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        /* Estructura de bloques de argumento */
+        .argument-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .argument-header {
+            background-color: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Campos de texto interactivos */
+        .input-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px dashed #cbd5e1;
+            padding: 6px 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--slate-text);
+            outline: none;
+            transition: all 0.2s;
+        }
+        .input-field:focus {
+            border-bottom: 1px solid var(--sapphire-blue);
+            background-color: #f8fafc;
+        }
+        
+        textarea.input-field {
+            resize: none;
+            height: 40px;
+            overflow-y: hidden;
+        }
+
+        /* Bloques de flujo lógico */
+        .flow-badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            text-align: center;
+            width: 90px;
+        }
+
+        .bg-dato { background-color: #ef4444; }
+        .bg-calculo { background-color: #f59e0b; }
+        .bg-conclusion { background-color: #10b981; }
+        .bg-propuesta { background-color: #0f4c81; }
+        .bg-creativo { background-color: #8b5cf6; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .page-container { box-shadow: none; border: none; margin: 0; width: 100%; max-width: none; padding: 0; }
+            .no-print { display: none; }
+            .input-field { border-bottom: none !important; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print flex justify-center py-3 bg-slate-800 gap-4 sticky top-0 z-50 shadow-md">
+        <p class="text-white text-xs self-center">Completad los bloques de texto. El progreso se guarda y calcula automáticamente.</p>
+        <button onclick="window.print()" class="bg-sky-500 hover:bg-sky-400 text-white px-4 py-1.5 rounded text-xs font-bold transition shadow">
+            IMPRIMIR / GUARDAR EN PDF
+        </button>
+    </div>
+
+    <div class="page-container">
+        
+        <div class="header-banner border border-slate-300 bg-slate-50 p-5 mb-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="tech-font text-lg font-bold text-[#0f4c81] uppercase tracking-tight">Ficha de Análisis Crítico</h1>
+                    <div class="text-xs font-semibold text-slate-700 mt-1">SdA 3: Huellas sobre el territorio · Matemáticas 4.º ESO B</div>
+                </div>
+                <div class="text-right text-[10px] text-slate-400 leading-tight">
+                    <strong>Sesión de uso:</strong> Sesión 8<br>
+                    <strong>Tipo de material:</strong> Andamiaje argumentativo<br>
+                    <strong>Uso:</strong> Individual y en equipo
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 p-4 mb-6 rounded">
+            <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase mb-1.5">💡 ¿Qué es un argumento matemático?</h2>
+            <p class="text-xs text-slate-700 font-medium mb-3">En matemáticas, una opinión sin datos no es un argumento.</p>
+            
+            <div class="flex justify-between items-center bg-white border border-blue-100 p-3 rounded mb-3 text-center">
+                <div class="flex-1"><span class="flow-badge bg-dato">DATO</span><p class="text-[10px] text-slate-500 mt-1">Lo medido u observado</p></div>
+                <div class="text-slate-300 font-bold">➔</div>
+                <div class="flex-1"><span class="flow-badge bg-calculo">CÁLCULO</span><p class="text-[10px] text-slate-500 mt-1">Operación o ratio</p></div>
+                <div class="text-slate-300 font-bold">➔</div>
+                <div class="flex-1"><span class="flow-badge bg-conclusion">CONCLUSIÓN</span><p class="text-[10px] text-slate-500 mt-1">Lo que dice el diseño</p></div>
+                <div class="text-slate-300 font-bold">➔</div>
+                <div class="flex-1"><span class="flow-badge bg-propuesta">PROPUESTA</span><p class="text-[10px] text-slate-500 mt-1">Cambio con números</p></div>
+            </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-md p-4 mb-6 bg-slate-50/50">
+            <div class="tech-font text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">📌 Ejemplo Resuelto de Referencia</div>
+            <div class="text-xs text-slate-600 mb-2"><strong>Espacio analizado:</strong> Parque infantil de barrio (ejemplo simulado, no el vuestro).</div>
+            <div class="space-y-1.5 pl-2 border-l-2 border-slate-300">
+                <div class="text-xs"><span class="font-bold text-red-600 text-[10px] uppercase mr-1">[Dato]</span> La zona de juegos infantiles ocupa 45 m². El parque completo mide 300 m².</div>
+                <div class="text-xs"><span class="font-bold text-amber-600 text-[10px] uppercase mr-1">[Cálculo]</span> 45 ÷ 300 × 100 = 15 %. Solo el 15 % del parque está destinado al juego infantil.</div>
+                <div class="text-xs"><span class="font-bold text-emerald-600 text-[10px] uppercase mr-1">[Conclusión]</span> El espacio de juego es insuficiente para un barrio con alta densidad de población infantil. Más del 85 % del parque está ocupado por zonas de paso y ornamentales.</div>
+                <div class="text-xs"><span class="font-bold text-blue-700 text-[10px] uppercase mr-1">[Propuesta]</span> Ampliar la zona de juegos hasta 80 m² (27 % del total) reduciendo en 35 m² el área pavimentada del paseo central. Esto no afectaría a la zona verde ni a los accesos principales.</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6 px-1">
+            <div>
+                <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Identificación del Equipo</label>
+                <input type="text" class="input-field" placeholder="Nombre o número de vuestro equipo técnico...">
+            </div>
+            <div>
+                <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Fecha de Sesión</label>
+                <input type="text" class="input-field" placeholder="Introduce la fecha de hoy...">
+            </div>
+        </div>
+
+        <div class="border-b-2 border-[#0f4c81] pb-1 mb-4 mt-8">
+            <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase">🧭 Vuestro Turno de Trabajo</h2>
+            <p class="text-[11px] text-slate-500 mt-0.5">Usad esta estructura analítica para responder a las tres preguntas clave del Expediente nº 3.</p>
+        </div>
+
+        <div class="argument-container">
+            <div class="argument-header flex justify-between items-center">
+                <span>ARGUMENTO 1 — Pregunta 1: ¿Qué porcentaje del parque es zona verde real?</span>
+            </div>
+            <div class="p-3 space-y-3 bg-white">
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-dato mt-1.5">DATO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Indicad las medidas numéricas u observaciones obtenidas en vuestro análisis..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-calculo mt-1.5">CÁLCULO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Desarrollad aquí las operaciones matemáticas necesarias (porcentajes, ratios...)..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-conclusion mt-1.5">CONCLUSIÓN</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Explicad qué revelan estos cálculos sobre el diseño actual de la zona verde..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-propuesta mt-1.5">PROPUESTA</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Escribid vuestra alternativa de optimización espacial (si procede)..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="argument-container">
+            <div class="argument-header flex justify-between items-center">
+                <span>ARGUMENTO 2 — Pregunta 2: ¿Está bien distribuido el espacio?</span>
+            </div>
+            <div class="p-3 space-y-3 bg-white">
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-dato mt-1.5">DATO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Registrad los datos de áreas de caminos, plazas y otras sub-zonas..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-calculo mt-1.5">CÁLCULO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Plantead los cálculos comparativos o porcentajes de distribución..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-conclusion mt-1.5">CONCLUSIÓN</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Evaluad críticamente si la distribución es equilibrada u óptima..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-propuesta mt-1.5">PROPUESTA</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Plantead vuestras sugerencias técnicas de redistribución (si procede)..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="argument-container mt-6">
+            <div class="argument-header flex justify-between items-center">
+                <span>ARGUMENTO 3 — Pregunta 3: ¿Qué cambiaríais y por qué?</span>
+            </div>
+            <div class="p-3 space-y-3 bg-white">
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-dato mt-1.5">DATO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Seleccionad el dato empírico que justifica vuestra necesidad de cambio..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-calculo mt-1.5">CÁLCULO</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Operación que demuestra el impacto numérico de vuestra decisión..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-conclusion mt-1.5">CONCLUSIÓN</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Explicación argumentada del beneficio arquitectónico o social de la reforma..."></textarea>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="flow-badge bg-propuesta mt-1.5">PROPUESTA</span>
+                    <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Definición exacta del cambio propuesto (indicando m², porcentajes o dimensiones fijas)..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-purple-200 rounded-md overflow-hidden mb-6 mt-6">
+            <div class="bg-purple-50 px-4 py-2.5 border-b border-purple-200 flex items-center justify-between">
+                <span class="tech-font text-xs font-bold text-purple-800 uppercase flex items-center gap-1.5">🎨 Propuesta Creativa y Coherencia Geométrica</span>
+                <span class="flow-badge bg-creativo">DISEÑO ORIGINAL</span>
+            </div>
+            <div class="p-4 bg-white space-y-4">
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Diseñad al menos un <strong>elemento nuevo para el parque</strong> (una escultura emblemática, una instalación interactiva, una nueva zona temática de juegos o un jardín botánico estructurado) que utilice los conceptos matemáticos y geométricos de forma visible, funcional y original.
+                </p>
+                <div class="grid grid-cols-1 gap-4 pt-1">
+                    <div>
+                        <label class="text-xs font-semibold text-slate-700 block mb-1">1. ¿Qué forma geométrica tiene el elemento y por qué esa forma y no otra?</label>
+                        <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Describid las figuras espaciales elegidas y justificad vuestra elección de diseño..."></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-700 block mb-1">2. ¿Qué cálculos matemáticos justifican su viabilidad y dimensiones en el plano?</label>
+                        <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Indicad cálculos de área ocupada, volumen, proporciones de escala o perímetros necesarios..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase border-b-2 border-[#0f4c81] pb-1 mt-6 mb-3">📋 Lista de Comprobación antes de pasar al Informe</h2>
+        <div class="bg-slate-50 border border-slate-200 rounded p-4 space-y-2.5">
+            <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
+                <input type="checkbox" onchange="updateProgress()" class="mt-0.5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                <span>Cada argumento empieza con un <strong>dato numérico concreto</strong> extraído directamente de vuestro análisis previo.</span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
+                <input type="checkbox" onchange="updateProgress()" class="mt-0.5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                <span>Cada dato recopilado tiene un <strong>cálculo matemático asociado</strong> (no basta con repetir el número, hay que transformarlo).</span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
+                <input type="checkbox" onchange="updateProgress()" class="mt-0.5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                <span>Cada conclusión deducida dice algo relevante sobre el <strong>DISEÑO o funcionalidad</strong> del parque, no es solo un resumen numérico.</span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
+                <input type="checkbox" onchange="updateProgress()" class="mt-0.5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                <span>Al menos una de vuestras propuestas incorpora una <strong>medida explícita y exacta</strong> (superficie en m², porcentaje de ocupación...).</span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
+                <input type="checkbox" onchange="updateProgress()" class="mt-0.5 rounded border-slate-300 text-sky-600 focus:ring-sky-500">
+                <span><strong>No existe ninguna afirmación subjetiva</strong> o juicio de valor que carezca de un respaldo numérico u operacional.</span>
+            </label>
+        </div>
+
+        <div class="border border-slate-300 bg-slate-50 p-4 rounded flex flex-col gap-2 mt-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="tech-font font-bold text-slate-800 text-[11px] uppercase tracking-wide">Validación del Andamiaje Técnico</h3>
+                    <p class="text-[10px] text-slate-500">Todos los campos deben completarse antes de volcar los datos al Informe Final.</p>
+                </div>
+                <div class="text-right">
+                    <span id="progress-text" class="tech-font text-xs font-bold text-[#0f4c81]">Progreso: 0 / 19 hitos</span>
+                </div>
+            </div>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="progress-bar" class="bg-[#0f4c81] h-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Función para expandir textareas automáticamente mientras los alumnos escriben
+        function autoGrow(element) {
+            element.style.height = "40px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+
+        // Función para auditar los campos rellenados y actualizar la barra de progreso
+        function updateProgress() {
+            const textareas = document.querySelectorAll('textarea.input-field');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const teamInput = document.querySelectorAll('input[type="text"]');
+            
+            let completed = 0;
+            const totalHitos = textareas.length + checkboxes.length + teamInput.length;
+
+            textareas.forEach(ta => { if(ta.value.trim().length > 10) completed++; });
+            checkboxes.forEach(cb => { if(cb.checked) completed++; });
+            teamInput.forEach(ti => { if(ti.value.trim().length > 2) completed++; });
+
+            // Actualizar interfaz gráfica
+            document.getElementById('progress-text').innerText = `Progreso: ${completed} / ${totalHitos} hitos`;
+            const percentage = (completed / totalHitos) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+        
+        // Ejecución inicial para fijar estados
+        window.onload = updateProgress;
+    </script>
+</body>
+</html>
