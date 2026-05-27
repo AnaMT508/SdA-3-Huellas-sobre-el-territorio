@@ -94,7 +94,6 @@
         .bg-calculo { background-color: #f59e0b; }
         .bg-conclusion { background-color: #10b981; }
         .bg-propuesta { background-color: #0f4c81; }
-        .bg-creativo { background-color: #8b5cf6; }
 
         @media print {
             body { background: white; padding: 0; }
@@ -107,6 +106,7 @@
 </head>
 <body>
 
+    <!-- Barra de Herramientas Superior Dinámica -->
     <div class="no-print flex justify-center py-3 bg-slate-800 gap-4 sticky top-0 z-50 shadow-md">
         <p class="text-white text-xs self-center">Completad los bloques de texto. El progreso se guarda y calcula automáticamente.</p>
         <button onclick="window.print()" class="bg-sky-500 hover:bg-sky-400 text-white px-4 py-1.5 rounded text-xs font-bold transition shadow">
@@ -116,6 +116,7 @@
 
     <div class="page-container">
         
+        <!-- CABECERA TÉCNICA -->
         <div class="header-banner border border-slate-300 bg-slate-50 p-5 mb-6">
             <div class="flex justify-between items-start">
                 <div>
@@ -130,10 +131,12 @@
             </div>
         </div>
 
+        <!-- MARCO TEÓRICO: ¿QUÉ ES UN ARGUMENTO MATEMÁTICO? -->
         <div class="bg-blue-50 border border-blue-200 p-4 mb-6 rounded">
             <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase mb-1.5">💡 ¿Qué es un argumento matemático?</h2>
             <p class="text-xs text-slate-700 font-medium mb-3">En matemáticas, una opinión sin datos no es un argumento.</p>
             
+            <!-- Flujo Visual -->
             <div class="flex justify-between items-center bg-white border border-blue-100 p-3 rounded mb-3 text-center">
                 <div class="flex-1"><span class="flow-badge bg-dato">DATO</span><p class="text-[10px] text-slate-500 mt-1">Lo medido u observado</p></div>
                 <div class="text-slate-300 font-bold">➔</div>
@@ -145,6 +148,7 @@
             </div>
         </div>
 
+        <!-- EJEMPLO RESUELTO -->
         <div class="border border-slate-200 rounded-md p-4 mb-6 bg-slate-50/50">
             <div class="tech-font text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">📌 Ejemplo Resuelto de Referencia</div>
             <div class="text-xs text-slate-600 mb-2"><strong>Espacio analizado:</strong> Parque infantil de barrio (ejemplo simulado, no el vuestro).</div>
@@ -156,22 +160,25 @@
             </div>
         </div>
 
+        <!-- METADATOS ALUMNOS -->
         <div class="grid grid-cols-2 gap-6 mb-6 px-1">
             <div>
                 <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Identificación del Equipo</label>
-                <input type="text" class="input-field" placeholder="Nombre o número de vuestro equipo técnico...">
+                <input type="text" class="input-field" placeholder="Nombre o número de vuestro equipo técnico..." oninput="updateProgress();">
             </div>
             <div>
                 <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Fecha de Sesión</label>
-                <input type="text" class="input-field" placeholder="Introduce la fecha de hoy...">
+                <input type="text" class="input-field" placeholder="Introduce la fecha de hoy..." oninput="updateProgress();">
             </div>
         </div>
 
+        <!-- SECCIÓN: VUESTRO TURNO -->
         <div class="border-b-2 border-[#0f4c81] pb-1 mb-4 mt-8">
             <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase">🧭 Vuestro Turno de Trabajo</h2>
             <p class="text-[11px] text-slate-500 mt-0.5">Usad esta estructura analítica para responder a las tres preguntas clave del Expediente nº 3.</p>
         </div>
 
+        <!-- ARGUMENTO 1 -->
         <div class="argument-container">
             <div class="argument-header flex justify-between items-center">
                 <span>ARGUMENTO 1 — Pregunta 1: ¿Qué porcentaje del parque es zona verde real?</span>
@@ -196,6 +203,7 @@
             </div>
         </div>
 
+        <!-- ARGUMENTO 2 -->
         <div class="argument-container">
             <div class="argument-header flex justify-between items-center">
                 <span>ARGUMENTO 2 — Pregunta 2: ¿Está bien distribuido el espacio?</span>
@@ -220,8 +228,10 @@
             </div>
         </div>
 
+        <!-- SALTO DE PÁGINA PARA CONTROL DE DISEÑO EN IMPRESIÓN -->
         <div class="page-break"></div>
 
+        <!-- ARGUMENTO 3 -->
         <div class="argument-container mt-6">
             <div class="argument-header flex justify-between items-center">
                 <span>ARGUMENTO 3 — Pregunta 3: ¿Qué cambiaríais y por qué?</span>
@@ -246,28 +256,7 @@
             </div>
         </div>
 
-        <div class="border border-purple-200 rounded-md overflow-hidden mb-6 mt-6">
-            <div class="bg-purple-50 px-4 py-2.5 border-b border-purple-200 flex items-center justify-between">
-                <span class="tech-font text-xs font-bold text-purple-800 uppercase flex items-center gap-1.5">🎨 Propuesta Creativa y Coherencia Geométrica</span>
-                <span class="flow-badge bg-creativo">DISEÑO ORIGINAL</span>
-            </div>
-            <div class="p-4 bg-white space-y-4">
-                <p class="text-xs text-slate-600 leading-relaxed">
-                    Diseñad al menos un <strong>elemento nuevo para el parque</strong> (una escultura emblemática, una instalación interactiva, una nueva zona temática de juegos o un jardín botánico estructurado) que utilice los conceptos matemáticos y geométricos de forma visible, funcional y original.
-                </p>
-                <div class="grid grid-cols-1 gap-4 pt-1">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-700 block mb-1">1. ¿Qué forma geométrica tiene el elemento y por qué esa forma y no otra?</label>
-                        <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Describid las figuras espaciales elegidas y justificad vuestra elección de diseño..."></textarea>
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-700 block mb-1">2. ¿Qué cálculos matemáticos justifican su viabilidad y dimensiones en el plano?</label>
-                        <textarea class="input-field" oninput="autoGrow(this); updateProgress();" placeholder="Indicad cálculos de área ocupada, volumen, proporciones de escala o perímetros necesarios..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!-- LISTA DE COMPROBACIÓN -->
         <h2 class="tech-font text-xs font-bold text-[#0f4c81] uppercase border-b-2 border-[#0f4c81] pb-1 mt-6 mb-3">📋 Lista de Comprobación antes de pasar al Informe</h2>
         <div class="bg-slate-50 border border-slate-200 rounded p-4 space-y-2.5">
             <label class="flex items-start gap-3 cursor-pointer text-xs text-slate-700">
@@ -292,6 +281,7 @@
             </label>
         </div>
 
+        <!-- PANEL DE CONTROL E INDICADOR DE PROGRESO DE LA AUDITORÍA -->
         <div class="border border-slate-300 bg-slate-50 p-4 rounded flex flex-col gap-2 mt-6">
             <div class="flex justify-between items-center">
                 <div>
@@ -299,9 +289,11 @@
                     <p class="text-[10px] text-slate-500">Todos los campos deben completarse antes de volcar los datos al Informe Final.</p>
                 </div>
                 <div class="text-right">
+                    <!-- Hay 19 hitos totales: 12 textareas + 2 inputs + 5 checkboxes -->
                     <span id="progress-text" class="tech-font text-xs font-bold text-[#0f4c81]">Progreso: 0 / 19 hitos</span>
                 </div>
             </div>
+            <!-- Barra de progreso visual -->
             <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                 <div id="progress-bar" class="bg-[#0f4c81] h-full transition-all duration-300" style="width: 0%;"></div>
             </div>
@@ -309,6 +301,7 @@
 
     </div>
 
+    <!-- CONTROLADORES DINÁMICOS POR SCRIPT -->
     <script>
         // Función para expandir textareas automáticamente mientras los alumnos escriben
         function autoGrow(element) {
@@ -320,14 +313,19 @@
         function updateProgress() {
             const textareas = document.querySelectorAll('textarea.input-field');
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const teamInput = document.querySelectorAll('input[type="text"]');
+            const teamInputs = document.querySelectorAll('input[type="text"].input-field');
             
             let completed = 0;
-            const totalHitos = textareas.length + checkboxes.length + teamInput.length;
+            const totalHitos = textareas.length + checkboxes.length + teamInputs.length; // 12 + 5 + 2 = 19
 
-            textareas.forEach(ta => { if(ta.value.trim().length > 10) completed++; });
+            // Contar textareas completados (más de 5 caracteres para considerarlo válido)
+            textareas.forEach(ta => { if(ta.value.trim().length > 5) completed++; });
+            
+            // Contar checkboxes marcados
             checkboxes.forEach(cb => { if(cb.checked) completed++; });
-            teamInput.forEach(ti => { if(ti.value.trim().length > 2) completed++; });
+            
+            // Contar inputs de equipo/fecha completados
+            teamInputs.forEach(ti => { if(ti.value.trim().length > 2) completed++; });
 
             // Actualizar interfaz gráfica
             document.getElementById('progress-text').innerText = `Progreso: ${completed} / ${totalHitos} hitos`;
@@ -340,3 +338,4 @@
     </script>
 </body>
 </html>
+
